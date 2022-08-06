@@ -13,6 +13,7 @@ func init() {
 	commands["release"] = CommandRelease
 	commands["ignore"] = CommandIgnore
 	commands["log"] = CommandLog
+	commands["help"] = CommandHelp
 }
 
 func GetCommandList() map[string]Command {
