@@ -15,6 +15,9 @@ func GetText(tips string) string {
 		_, _ = fmt.Scanln(&line)
 
 		if line == "f" {
+			if len(buffer) == 0 {
+				return ""
+			}
 			return buffer[:len(buffer)-1]
 		} else if line == "e" {
 			os.Exit(0)
