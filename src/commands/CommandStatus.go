@@ -121,7 +121,7 @@ nextFile:
 		newList = append(newList, filePath)
 	}
 
-	//遍历构件列表
+	//遍历构件列表,检查已删除的
 nextArtifact:
 	for _, artifact := range cfg.Artifacts {
 		for _, filePath := range fileList {
@@ -129,9 +129,7 @@ nextArtifact:
 				continue nextArtifact
 			}
 		}
-		if !artifact.Deleted {
-			deletedList = append(deletedList, artifact.Path)
-		}
+		deletedList = append(deletedList, artifact.Path)
 	}
 
 	return newList, updatedList, deletedList, nil

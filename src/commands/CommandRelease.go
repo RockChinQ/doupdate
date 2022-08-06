@@ -33,11 +33,6 @@ func CommandRelease(args []string) error {
 
 	//生成版本号
 	maxVersion := models.Config.Latest
-	// for _, artifact := range models.GetConfig().Artifacts {
-	// 	if artifact.Latest > maxVersion {
-	// 		maxVersion = artifact.Latest
-	// 	}
-	// }
 
 	versionNum := 0
 
@@ -79,11 +74,10 @@ func CommandRelease(args []string) error {
 		}
 
 		artifact := models.Artifact{
-			Path:    filePath,
-			Digest:  digest,
-			Latest:  versionNum,
-			Deleted: false,
-			Length:  length,
+			Path:   filePath,
+			Digest: digest,
+			Latest: versionNum,
+			Length: length,
 		}
 
 		//保存到版本库
@@ -111,7 +105,6 @@ func CommandRelease(args []string) error {
 			if artifact.Path == filePath {
 				models.Config.Artifacts[n].Digest = digest
 				models.Config.Artifacts[n].Latest = versionNum
-				models.Config.Artifacts[n].Deleted = false
 				models.Config.Artifacts[n].Length = length
 				break
 			}
@@ -126,24 +119,10 @@ func CommandRelease(args []string) error {
 
 	}
 
-	// //标记已删除的
-	// for _, filePath := range deletedList {
-	// 	for n, artifact := range models.Config.Artifacts {
-	// 		if artifact.Path == filePath {
-	// 			models.Config.Artifacts[n].Deleted = true
-	// 			models.Config.Artifacts[n].Latest = versionNum
-	// 			break
-	// 		}
-	// 	}
-	// }
-
 	//删除已删除的文件的记录
 	for _, filePath := range deletedList {
 		for n := 0; n < len(models.Config.Artifacts); {
 			if models.Config.Artifacts[n].Path == filePath {
-				models.Config.Artifacts[n].Deleted = true
-				models.Config.Artifacts[n].Latest = versionNum
-
 				models.Config.Artifacts = append(models.Config.Artifacts[:n], models.Config.Artifacts[n+1:]...)
 				break
 			} else {

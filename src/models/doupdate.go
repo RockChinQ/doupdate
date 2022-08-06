@@ -8,11 +8,10 @@ import (
 )
 
 type Artifact struct {
-	Path    string `json:"path"`
-	Latest  int    `json:"latest"`
-	Digest  string `json:"digest"`
-	Deleted bool   `json:"deleted"`
-	Length  int64  `json:"length"`
+	Path   string `json:"path"`
+	Latest int    `json:"latest"`
+	Digest string `json:"digest"`
+	Length int64  `json:"length"`
 }
 
 type DoUpdateConfig struct {
