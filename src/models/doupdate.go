@@ -17,6 +17,7 @@ type Artifact struct {
 
 type DoUpdateConfig struct {
 	FingerPrint string     `json:"fingerprint"`
+	Latest      int        `json:"latest"`
 	Artifacts   []Artifact `json:"artifacts"`
 }
 

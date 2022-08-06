@@ -9,9 +9,11 @@ import (
 )
 
 type ChangeLog struct {
-	Version   int    `json:"version"`
-	Changes   string `json:"changes"`
-	TimeStamp int64  `json:"timestamp"`
+	Version   int                   `json:"version"`
+	Previous  int                   `json:"previous"`
+	Changes   string                `json:"changes"`
+	TimeStamp int64                 `json:"timestamp"`
+	Brief     map[string]([]string) `json:"brief"`
 }
 
 func DumpChangeLog(changeLog ChangeLog, path string) error {

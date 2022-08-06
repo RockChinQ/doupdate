@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"regexp"
 	"strconv"
 	"strings"
 )
@@ -46,7 +47,11 @@ func CommandStatus(args []string) error {
 			fmt.Println(strconv.Itoa(n+1) + " " + filePath)
 		}
 	}
-	fmt.Println("")
+	if len(newList) == 0 && len(updatedList) == 0 && len(deletedList) == 0 {
+		fmt.Println("no file changed")
+	} else {
+		fmt.Println("")
+	}
 
 	return nil
 }
@@ -105,7 +110,7 @@ nextFile:
 
 		//检查是不是在忽略列表
 		for _, rule := range models.Ignored.Rules {
-			ignored, err := filepath.Match(rule, filePath)
+			ignored, err := PathMatch(rule, filePath)
 			if err != nil {
 				return nil, nil, nil, err
 			}
@@ -130,4 +135,8 @@ nextArtifact:
 	}
 
 	return newList, updatedList, deletedList, nil
+}
+
+func PathMatch(ruleReg, path string) (bool, error) {
+	return regexp.MatchString(ruleReg, path)
 }

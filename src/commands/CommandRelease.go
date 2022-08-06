@@ -15,6 +15,7 @@ func CommandRelease(args []string) error {
 		return err
 	}
 
+	//加载忽略路径的规则
 	err = models.LoadIgnoreRules(".")
 	if err != nil {
 		return err
@@ -31,12 +32,12 @@ func CommandRelease(args []string) error {
 	}
 
 	//生成版本号
-	maxVersion := 0
-	for _, artifact := range models.GetConfig().Artifacts {
-		if artifact.Latest > maxVersion {
-			maxVersion = artifact.Latest
-		}
-	}
+	maxVersion := models.Config.Latest
+	// for _, artifact := range models.GetConfig().Artifacts {
+	// 	if artifact.Latest > maxVersion {
+	// 		maxVersion = artifact.Latest
+	// 	}
+	// }
 
 	versionNum := 0
 
@@ -46,16 +47,15 @@ func CommandRelease(args []string) error {
 		versionNum = util.GetNowDateTime() * 100
 	}
 
-	//获取changelog
+	models.Config.Latest = versionNum
 
+	//输入changelog
 	changelog := models.ChangeLog{
 		Version:   versionNum,
+		Previous:  maxVersion,
 		Changes:   util.GetText("enter changelogs for version " + strconv.Itoa(versionNum)),
 		TimeStamp: time.Now().Unix(),
-	}
-	err = models.DumpChangeLog(changelog, ".")
-	if err != nil {
-		return err
+		Brief:     make(map[string][]string),
 	}
 
 	//把所有新增和改动的文件存进versions
@@ -126,16 +126,39 @@ func CommandRelease(args []string) error {
 
 	}
 
-	//标记已删除的
+	// //标记已删除的
+	// for _, filePath := range deletedList {
+	// 	for n, artifact := range models.Config.Artifacts {
+	// 		if artifact.Path == filePath {
+	// 			models.Config.Artifacts[n].Deleted = true
+	// 			models.Config.Artifacts[n].Latest = versionNum
+	// 			break
+	// 		}
+	// 	}
+	// }
+
+	//删除已删除的文件的记录
 	for _, filePath := range deletedList {
-		for n, artifact := range models.Config.Artifacts {
-			if artifact.Path == filePath {
+		for n := 0; n < len(models.Config.Artifacts); {
+			if models.Config.Artifacts[n].Path == filePath {
 				models.Config.Artifacts[n].Deleted = true
 				models.Config.Artifacts[n].Latest = versionNum
+
+				models.Config.Artifacts = append(models.Config.Artifacts[:n], models.Config.Artifacts[n+1:]...)
 				break
+			} else {
+				n++
 			}
 		}
 	}
 
+	changelog.Brief["added"] = newList
+	changelog.Brief["updated"] = updatedList
+	changelog.Brief["deleted"] = deletedList
+
+	err = models.DumpChangeLog(changelog, ".")
+	if err != nil {
+		return err
+	}
 	return models.DumpDoUpdateConfig(".")
 }

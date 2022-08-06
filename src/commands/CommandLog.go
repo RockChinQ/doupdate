@@ -48,7 +48,7 @@ func CommandLog(args []string) error {
 	}
 
 	for i := 0; i < len(versions); i++ {
-		fmt.Println("release " + strconv.Itoa(versions[i]))
+		fmt.Println("= Release " + strconv.Itoa(versions[i]))
 
 		var changeLog models.ChangeLog
 
@@ -61,7 +61,8 @@ func CommandLog(args []string) error {
 
 		fmt.Println("Time:", t)
 		fmt.Println("Version:", changeLog.Version)
-		fmt.Println("Changes:\n- " + strings.ReplaceAll(changeLog.Changes, "\n", "\n- "))
+		fmt.Println("Brief:\n\tadded:" + strconv.Itoa(len(changeLog.Brief["added"])) + "\n\tupdated:" + strconv.Itoa(len(changeLog.Brief["updated"])) + "\n\tdeleted:" + strconv.Itoa(len(changeLog.Brief["deleted"])))
+		fmt.Println("Changes:\n\t- " + strings.ReplaceAll(changeLog.Changes, "\n", "\n\t- "))
 		fmt.Println()
 
 		if (i-1)%2 == 0 && i != len(versions)-1 {
