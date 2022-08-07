@@ -119,7 +119,7 @@ func GetFileSize(filename string) (int64, error) {
 	return fi.Size(), nil
 }
 
-func LoadJSON(path string, a any) error {
+func LoadJSON(path string, a interface{}) error {
 
 	jsonb, err := ioutil.ReadFile(path)
 	if err != nil {
