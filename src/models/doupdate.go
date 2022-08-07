@@ -1,7 +1,6 @@
 package models
 
 import (
-	"doupdate/src/util"
 	"encoding/json"
 	"io/ioutil"
 	"os"
@@ -37,7 +36,7 @@ func DumpDoUpdateConfig(path string) error {
 		return err
 	}
 
-	return ioutil.WriteFile(path+string(os.PathSeparator)+".doup"+string(os.PathSeparator)+"doupdate.json", jsonb, util.OS_USER_RW)
+	return ioutil.WriteFile(path+string(os.PathSeparator)+".doup"+string(os.PathSeparator)+"doupdate.json", jsonb, 0755)
 }
 
 func GetConfig() DoUpdateConfig {

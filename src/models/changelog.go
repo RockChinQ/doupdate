@@ -1,7 +1,6 @@
 package models
 
 import (
-	"doupdate/src/util"
 	"encoding/json"
 	"io/ioutil"
 	"os"
@@ -22,5 +21,5 @@ func DumpChangeLog(changeLog ChangeLog, path string) error {
 		return err
 	}
 
-	return ioutil.WriteFile(path+string(os.PathSeparator)+".doup"+string(os.PathSeparator)+"changelogs"+string(os.PathSeparator)+strconv.Itoa(changeLog.Version)+".json", jsonb, util.OS_USER_RW)
+	return ioutil.WriteFile(path+string(os.PathSeparator)+".doup"+string(os.PathSeparator)+"changelogs"+string(os.PathSeparator)+strconv.Itoa(changeLog.Version)+".json", jsonb, 0755)
 }

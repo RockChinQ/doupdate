@@ -1,7 +1,6 @@
 package models
 
 import (
-	"doupdate/src/util"
 	"encoding/json"
 	"io/ioutil"
 	"os"
@@ -28,5 +27,5 @@ func DumpIgnoreRules(path string) error {
 		return err
 	}
 
-	return ioutil.WriteFile(path+string(os.PathSeparator)+".doup"+string(os.PathSeparator)+"ignored.json", jsonb, util.OS_USER_RW)
+	return ioutil.WriteFile(path+string(os.PathSeparator)+".doup"+string(os.PathSeparator)+"ignored.json", jsonb, 0755)
 }

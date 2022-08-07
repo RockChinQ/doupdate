@@ -96,7 +96,7 @@ func Copy(src, dst string) (int64, error) {
 	//创建所有所需文件夹
 	dstDir := dst[:strings.LastIndex(dst, string(os.PathSeparator))]
 	if !Exists(dstDir) {
-		err = os.MkdirAll(dstDir, OS_USER_RW)
+		err = os.MkdirAll(dstDir, 0755)
 		if err != nil {
 			return 0, err
 		}
