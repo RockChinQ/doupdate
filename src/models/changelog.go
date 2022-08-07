@@ -21,5 +21,5 @@ func DumpChangeLog(changeLog ChangeLog, path string) error {
 		return err
 	}
 
-	return ioutil.WriteFile(path+string(os.PathSeparator)+".doup"+string(os.PathSeparator)+"changelogs"+string(os.PathSeparator)+strconv.Itoa(changeLog.Version)+".json", jsonb, 755)
+	return ioutil.WriteFile(path+string(os.PathSeparator)+".doup"+string(os.PathSeparator)+"changelogs"+string(os.PathSeparator)+strconv.Itoa(changeLog.Version)+".json", jsonb, 0755)
 }

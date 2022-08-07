@@ -27,5 +27,5 @@ func DumpIgnoreRules(path string) error {
 		return err
 	}
 
-	return ioutil.WriteFile(path+string(os.PathSeparator)+".doup"+string(os.PathSeparator)+"ignored.json", jsonb, 755)
+	return ioutil.WriteFile(path+string(os.PathSeparator)+".doup"+string(os.PathSeparator)+"ignored.json", jsonb, 0755)
 }
