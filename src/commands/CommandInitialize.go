@@ -21,17 +21,17 @@ func CommandInitialize(args []string) error {
 	}
 
 	//开始创建
-	err := os.Mkdir(targetDir+string(os.PathSeparator)+".doup", util.OS_USER_RW)
+	err := os.Mkdir(targetDir+string(os.PathSeparator)+".doup", 755)
 	if err != nil {
 		return err
 	}
 
-	err = os.Mkdir(targetDir+string(os.PathSeparator)+".doup"+string(os.PathSeparator)+"changelogs", util.OS_USER_RW)
+	err = os.Mkdir(targetDir+string(os.PathSeparator)+".doup"+string(os.PathSeparator)+"changelogs", 755)
 	if err != nil {
 		return err
 	}
 
-	err = os.Mkdir(targetDir+string(os.PathSeparator)+".doup"+string(os.PathSeparator)+"versions", util.OS_USER_RW)
+	err = os.Mkdir(targetDir+string(os.PathSeparator)+".doup"+string(os.PathSeparator)+"versions", 755)
 	if err != nil {
 		return err
 	}
@@ -49,7 +49,7 @@ func CommandInitialize(args []string) error {
 		return err
 	}
 
-	err = ioutil.WriteFile(targetDir+string(os.PathSeparator)+".doup"+string(os.PathSeparator)+"doupdate.json", bytes, util.OS_USER_RW)
+	err = ioutil.WriteFile(targetDir+string(os.PathSeparator)+".doup"+string(os.PathSeparator)+"doupdate.json", bytes, 755)
 
 	if err != nil {
 		return err
@@ -64,7 +64,7 @@ func CommandInitialize(args []string) error {
 		return err
 	}
 
-	err = ioutil.WriteFile(targetDir+string(os.PathSeparator)+".doup"+string(os.PathSeparator)+"ignored.json", bytes, util.OS_USER_RW)
+	err = ioutil.WriteFile(targetDir+string(os.PathSeparator)+".doup"+string(os.PathSeparator)+"ignored.json", bytes, 755)
 
 	if err != nil {
 		return err

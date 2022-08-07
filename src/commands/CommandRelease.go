@@ -55,7 +55,7 @@ func CommandRelease(args []string) error {
 
 	//把所有新增和改动的文件存进versions
 	if !util.Exists(".doup" + string(os.PathSeparator) + "versions" + string(os.PathSeparator) + strconv.Itoa(versionNum)) {
-		err = os.Mkdir(".doup"+string(os.PathSeparator)+"versions"+string(os.PathSeparator)+strconv.Itoa(versionNum), util.OS_USER_RW)
+		err = os.Mkdir(".doup"+string(os.PathSeparator)+"versions"+string(os.PathSeparator)+strconv.Itoa(versionNum), 755)
 		if err != nil {
 			return err
 		}
