@@ -6,8 +6,9 @@ import (
 	"fmt"
 )
 
+// 处理命令行程序参数
 func Execute(args []string) error {
-	if len(args) < 2 {
+	if len(args) < 2 { // 未指定操作
 		fmt.Println("please specific one of valid commands:")
 		for name := range commands.GetCommandList() {
 			fmt.Println("- " + name)
@@ -15,7 +16,7 @@ func Execute(args []string) error {
 		fmt.Println()
 		return errors.New("no commands specified")
 	}
-
+	// 在已注册的命令列表中查找指令并执行
 	for name, cmd := range commands.GetCommandList() {
 		if args[1] == name {
 			err := cmd(args)

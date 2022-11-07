@@ -7,6 +7,7 @@ import (
 	"strconv"
 )
 
+// 版本日志的模型
 type ChangeLog struct {
 	Version   int                   `json:"version"`
 	Previous  int                   `json:"previous"`
@@ -15,6 +16,7 @@ type ChangeLog struct {
 	Brief     map[string]([]string) `json:"brief"`
 }
 
+// 将一个版本日志保存到指定文件
 func DumpChangeLog(changeLog ChangeLog, path string) error {
 	jsonb, err := json.MarshalIndent(changeLog, "", "\t")
 	if err != nil {

@@ -1,7 +1,9 @@
 package commands
 
+// 定义一个指令的函数模型
 type Command func(args []string) error
 
+// 指令列表
 var commands map[string]Command
 
 //把所有可用的指令注册
